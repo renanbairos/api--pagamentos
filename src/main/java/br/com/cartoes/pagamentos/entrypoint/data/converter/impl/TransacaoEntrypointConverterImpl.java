@@ -1,6 +1,6 @@
-package br.com.cartoes.pagamentos.entrypoint.converter.impl;
+package br.com.cartoes.pagamentos.entrypoint.data.converter.impl;
 
-import br.com.cartoes.pagamentos.entrypoint.converter.TransacaoEntrypointConverter;
+import br.com.cartoes.pagamentos.entrypoint.data.converter.TransacaoEntrypointConverter;
 import br.com.cartoes.pagamentos.entrypoint.data.TransacaoEntrypoint;
 import br.com.cartoes.pagamentos.service.data.TransacaoService;
 import org.springframework.stereotype.Component;

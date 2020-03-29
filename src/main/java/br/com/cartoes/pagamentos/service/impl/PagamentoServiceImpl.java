@@ -1,8 +1,12 @@
 package br.com.cartoes.pagamentos.service.impl;
 
+import br.com.cartoes.pagamentos.gateway.PagamentoGateway;
 import br.com.cartoes.pagamentos.service.PagamentoService;
+import br.com.cartoes.pagamentos.service.data.SaldoService;
 import br.com.cartoes.pagamentos.service.data.TransacaoService;
+import br.com.cartoes.pagamentos.service.data.converter.TransacaoServiceConverter;
 import br.com.cartoes.pagamentos.util.enums.ModalidadeEnum;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -11,14 +15,35 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class PagamentoServiceImpl implements PagamentoService {
+
+    private final TransacaoServiceConverter transacaoServiceConverter;
+    private final PagamentoGateway pagamentoGateway;
 
     public void pagar(TransacaoService transacaoService) {
 
         transacaoService.setLiquido(this.recuperarValorLiquido(transacaoService.getValor(), transacaoService.getModalidade()));
         transacaoService.setDisponivel(this.recuperarDataRecebimento(transacaoService.getHorario(), transacaoService.getModalidade()));
+
+        pagamentoGateway.registrarTransacao(transacaoServiceConverter.toEntity(transacaoService));
+
+    }
+
+    public List<TransacaoService> recuperarTransacoes() {
+
+        return transacaoServiceConverter.fromEntityToService(pagamentoGateway.recuperarTransacoes());
+
+    }
+
+    public SaldoService recuperarSaldo() {
+
+        
+
+        return SaldoService.builder().build();
 
     }
 

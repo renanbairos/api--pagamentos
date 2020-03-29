@@ -6,8 +6,7 @@ import java.time.LocalDate;
 import java.util.Date;
 
 @Builder
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class TransacaoService {

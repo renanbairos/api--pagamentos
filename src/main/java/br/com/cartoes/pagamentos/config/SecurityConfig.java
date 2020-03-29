@@ -17,6 +17,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/pagamento").hasRole("TERMINAL")
                 .and()
+                .authorizeRequests()
+                .antMatchers(HttpMethod.GET, "/pagamentos", "/saldo").hasRole("PORTAL")
+                .and()
                 .httpBasic();
     }
 
@@ -27,6 +30,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication()
                 .withUser("terminal")
                 .password("{noop}123456")
-                .roles("TERMINAL");
+                .roles("TERMINAL")
+                .and()
+                .withUser("portal")
+                .password("{noop}123456")
+                .roles("PORTAL");
     }
 }

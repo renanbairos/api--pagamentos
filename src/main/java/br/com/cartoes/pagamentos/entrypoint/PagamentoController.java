@@ -1,16 +1,16 @@
 package br.com.cartoes.pagamentos.entrypoint;
 
-import br.com.cartoes.pagamentos.entrypoint.converter.TransacaoEntrypointConverter;
 import br.com.cartoes.pagamentos.entrypoint.data.TransacaoEntrypoint;
+import br.com.cartoes.pagamentos.entrypoint.data.converter.TransacaoEntrypointConverter;
 import br.com.cartoes.pagamentos.service.PagamentoService;
+import br.com.cartoes.pagamentos.service.data.SaldoService;
+import br.com.cartoes.pagamentos.service.data.TransacaoService;
 import br.com.cartoes.pagamentos.util.enums.BandeiraEnum;
 import br.com.cartoes.pagamentos.util.enums.ModalidadeEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -34,6 +34,24 @@ public class PagamentoController {
 
         this.pagamentoService.pagar(
                 this.transacaoEntrypointConverter.toService(transacaoEntrypoint));
+
+        return response;
+    }
+
+    @GetMapping("/pagamentos")
+    public @ResponseBody ResponseEntity<List<TransacaoService>> recuperarPagamentos() throws Exception {
+
+        List<TransacaoService> transacaoServiceList = pagamentoService.recuperarTransacoes();
+
+        ResponseEntity<List<TransacaoService>> response = new ResponseEntity<>(transacaoServiceList, HttpStatus.OK);
+
+        return response;
+    }
+
+    @GetMapping("/saldo")
+    public @ResponseBody ResponseEntity<SaldoService> recuperarSaldo() throws Exception {
+
+        ResponseEntity<SaldoService> response = new ResponseEntity<>(SaldoService.builder().build(), HttpStatus.OK);
 
         return response;
     }

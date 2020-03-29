@@ -1,4 +1,4 @@
-package br.com.cartoes.pagamentos.entrypoint.converter;
+package br.com.cartoes.pagamentos.entrypoint.data.converter;
 
 import br.com.cartoes.pagamentos.entrypoint.data.TransacaoEntrypoint;
 import br.com.cartoes.pagamentos.service.data.TransacaoService;
