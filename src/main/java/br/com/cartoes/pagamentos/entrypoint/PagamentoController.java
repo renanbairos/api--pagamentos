@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,7 +52,9 @@ public class PagamentoController {
     @GetMapping("/saldo")
     public @ResponseBody ResponseEntity<SaldoService> recuperarSaldo() throws Exception {
 
-        ResponseEntity<SaldoService> response = new ResponseEntity<>(SaldoService.builder().build(), HttpStatus.OK);
+        SaldoService saldoService = pagamentoService.recuperarSaldo(LocalDate.now());
+
+        ResponseEntity<SaldoService> response = new ResponseEntity<>(saldoService, HttpStatus.OK);
 
         return response;
     }

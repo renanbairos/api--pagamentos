@@ -39,11 +39,18 @@ public class PagamentoServiceImpl implements PagamentoService {
 
     }
 
-    public SaldoService recuperarSaldo() {
+    public SaldoService recuperarSaldo(LocalDate dataAtual) {
 
-        
+        BigDecimal disponivel = pagamentoGateway.recuperarDisponivel(dataAtual);
+        BigDecimal receber = pagamentoGateway.recuperarReceber(dataAtual);
 
-        return SaldoService.builder().build();
+        BigDecimal casoNulo = new BigDecimal(0.00).setScale(2);
+
+        return SaldoService
+                .builder()
+                .disponivel(disponivel != null ? disponivel : casoNulo)
+                .receber(receber != null ? receber : casoNulo)
+                .build();
 
     }
 

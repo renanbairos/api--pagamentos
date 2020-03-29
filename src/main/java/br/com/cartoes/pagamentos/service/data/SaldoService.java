@@ -5,14 +5,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class SaldoService {
 
-    private Double disponivel;
+    private BigDecimal disponivel;
 
-    private Double receber;
+    private BigDecimal receber;
 
 }
